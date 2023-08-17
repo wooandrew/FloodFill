@@ -7,6 +7,7 @@
 #include <memory>
 #include <utility>
 
+#include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 
 class Engine {
@@ -14,6 +15,7 @@ class Engine {
 public:
     
     Engine(std::string windowTitle = "FloodFill", int windowWidth = 1000, int windowHeight = 618);
+    ~Engine();
 
     int init();
 

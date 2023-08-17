@@ -4,7 +4,8 @@
 
 #include <iostream>
 
-#include <GLAD/glad.h>
+#include "Inputs/keyboard.hpp"
+#include "Inputs/mouse.hpp"
 
 Engine::Engine(std::string windowTitle, int windowWidth, int windowHeight) {
 
@@ -12,6 +13,10 @@ Engine::Engine(std::string windowTitle, int windowWidth, int windowHeight) {
 
     std::pair<int, int> windowDimensions = std::make_pair(windowWidth, windowHeight);
     WindowDimensions = std::make_shared<std::pair<int, int>>(windowDimensions);
+}
+
+Engine::~Engine() {
+    glfwDestroyWindow(Window);
 }
 
 int Engine::init() {
@@ -53,10 +58,10 @@ int Engine::init() {
     glfwSetWindowPos(Window, xPos, yPos);
 
     // Input Callback
-    // glfwSetKeyCallback(Window, KeyboardCallback)
+    glfwSetKeyCallback(Window, Keyboard::KeyCallback);
     
-    // glfwSetCursorPosCallback(Window, MousePosCallback)
-    // glfwSetMouseButtonCallback(Window, MouseButtonCallback)
+    glfwSetCursorPosCallback(Window, Mouse::PositionCallback);
+    glfwSetMouseButtonCallback(Window, Mouse::ButtonCallback);
 
     glfwSetWindowSizeLimits(Window, WindowDimensions->first, WindowDimensions->second,
         WindowDimensions->first, WindowDimensions->second);
